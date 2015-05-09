@@ -34,17 +34,19 @@ module pivot(axleLen = 3){
 
 use <parametric_involute_gear_v5.0.scad>
 
-	module gearTemplate(thick)
-	{
-		scale([.22,0.22,1]) gear (number_of_teeth = 15,
-			circular_pitch=700,
-			gear_thickness = thick,
-			rim_thickness=thick,
-			hub_thickness = thick,
-			backlash=2,
-			bore_diameter=0
-			);
-	}
+module gearTemplate(thick)
+{
+	scale([.22,0.22,1]) gear (number_of_teeth = 15,
+		circular_pitch=700,
+		gear_thickness = thick,
+		rim_thickness=thick,
+		hub_thickness = thick,
+		backlash=2,
+		bore_diameter=0
+		);
+}
+
+wiggle = 0.2;
 
 module mainGear() {
 	thickness = 2;
@@ -53,7 +55,7 @@ module mainGear() {
 		
 		minkowski(){
 			peg(thickness);
-			sphere(0.2);
+			sphere(wiggle);
 		}
 	}
 	handleD = 1;
@@ -70,7 +72,7 @@ module secondGear(){
 		
 		minkowski(){
 			peg(thickness);
-			sphere(0.2);
+			sphere(wiggle);
 		}
 	}
 
