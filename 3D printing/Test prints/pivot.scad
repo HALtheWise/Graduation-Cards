@@ -8,7 +8,7 @@ module paperMount(){
 }
 
 module peg(axleLen){ //peg, including clip
-	axleD = 2;
+	axleD = 5;
 	cylinder(d = axleD, h = axleLen);
 	
 	clipHeight = .3;
@@ -27,7 +27,7 @@ module pivot(axleLen = 3){
 	difference(){ //Peg with slot
 		peg(axleLen);
 
-		sliceWidth = 1;
+		sliceWidth = 2;
 		cube([100, sliceWidth, 100], center = true);
 	}
 }
