@@ -86,11 +86,11 @@ translate([13,0]) secondGear();
 
 $fs = .1;
 
-color("red") {
+color("lightgreen") {
 	pivot(2);
 	paperMount();
 }
-color("red") translate([13,0]) {
+color("lightgreen") translate([13,0]) {
 	pivot(1);
 	paperMount(1);
 }
