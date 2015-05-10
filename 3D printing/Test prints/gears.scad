@@ -27,8 +27,8 @@ module mainGear() {
 			sphere(wiggle);
 		}
 	}
-	handleD = 1;
-	handleH = 1;
+	handleD = 2;
+	handleH = 1.5;
 	translate([5,0,thickness])
 	cylinder(d=handleD, h = handleH);
 }
@@ -55,7 +55,7 @@ module secondGear(){
 	}
 }
 
-mainGear();
+!mainGear();
 translate([13,0]) !secondGear();
 
 $fs = .1;
