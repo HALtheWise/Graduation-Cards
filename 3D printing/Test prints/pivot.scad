@@ -1,6 +1,6 @@
 module paperMount(){
-	width = 20;
-	height = 2;
+	width = 10;
+	height = 1;
 	taperdeg = 20;
 
 	translate([0,0,-height])
@@ -36,8 +36,8 @@ use <parametric_involute_gear_v5.0.scad>
 
 module gearTemplate(thick)
 {
-	scale([.22,0.22,1]) gear (number_of_teeth = 15,
-		circular_pitch=700,
+	scale([.22,0.22,1]) gear (number_of_teeth = 6,
+		circular_pitch=1680,
 		gear_thickness = thick,
 		rim_thickness=thick,
 		hub_thickness = thick,
@@ -66,21 +66,22 @@ module mainGear() {
 
 module secondGear(){
 	thickness = 1;
+	rotate([0,0,30]){
 
-	difference(){
-		gearTemplate(thickness);
-		
-		minkowski(){
-			peg(thickness);
-			sphere(wiggle);
+		difference(){
+			gearTemplate(thickness);
+
+			minkowski(){
+				peg(thickness);
+				sphere(wiggle);
+			}
+		}
+
+
+		translate([4,0,thickness]){
+			scale(.4) pivot(2);
 		}
 	}
-
-
-	translate([4,0,thickness]){
-		scale(.4) pivot(2);
-	}
-
 }
 
 mainGear();
