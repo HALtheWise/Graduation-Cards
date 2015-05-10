@@ -1,6 +1,6 @@
 module paperMount(){
-	width = 10;
-	height = 1;
+	width = 8;
+	height = .6;
 	taperdeg = 20;
 
 	translate([0,0,-height])
