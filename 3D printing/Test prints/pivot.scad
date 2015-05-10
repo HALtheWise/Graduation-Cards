@@ -4,96 +4,72 @@ module paperMount(){
 	taperdeg = 20;
 
 	translate([0,0,-height])
-	cylinder(h=height, d1=width, d2 = width - 2 * height * cos(taperdeg), center=false);
-}
-
-module peg(axleLen){ //peg, including clip
-	axleD = 5;
-	cylinder(d = axleD, h = axleLen);
-	
-	clipHeight = .3;
-	clipRadius = .5;
-	translate([0,0,axleLen]) 
-	cylinder(h=clipHeight, d1=clipOuterD, d2=axleD);
-
-	clipOuterD = axleD+2*clipRadius;
-
-	printangle = 60;
-
-	translate([0,0,axleLen]) mirror([0,0,1]) cylinder(d1 = clipOuterD ,d2 = axleD, h = cos(printangle) * (clipOuterD - axleD));
-}
-
-module pivot(axleLen = 3){
-	difference(){ //Peg with slot
-		peg(axleLen);
-
-		sliceWidth = 2;
-		cube([100, sliceWidth, 100], center = true);
-	}
-}
-
-use <parametric_involute_gear_v5.0.scad>
-
-module gearTemplate(thick)
-{
-	scale([.22,0.22,1]) gear (number_of_teeth = 6,
-		circular_pitch=1680,
-		gear_thickness = thick,
-		rim_thickness=thick,
-		hub_thickness = thick,
-		backlash=2,
-		bore_diameter=0
-		);
-}
-
-wiggle = 0.2;
-
-module mainGear() {
-	thickness = 2;
 	difference(){
-		gearTemplate(thickness);
-		
-		minkowski(){
-			peg(thickness);
-			sphere(wiggle);
-		}
-	}
-	handleD = 1;
-	handleH = 1;
-	translate([5,0,thickness])
-	cylinder(d=handleD, h = handleH);
-}
-
-module secondGear(){
-	thickness = 1;
-	rotate([0,0,30]){
-
-		difference(){
-			gearTemplate(thickness);
-
-			minkowski(){
-				peg(thickness);
-				sphere(wiggle);
-			}
-		}
-
-
-		translate([4,0,thickness]){
-			scale(.4) pivot(2);
-		}
+		cylinder(h=height, d1=width, d2 = width - 2 * height * cos(taperdeg), center=false); //Marker for center
+		translate([0,0,height/2]) cylinder(h=height, d=.2);
 	}
 }
 
-mainGear();
-translate([13,0]) secondGear();
+axleD = 3;
+
+clipHeight = .8;
+clipRadius = 1.5;
+
+module separatePin(axleLen = 3){
+	rotate([180]) translate([0,0,-axleLen]){
+		cylinder(h=axleLen, d=axleD);
+		cylinder(h=clipHeight, d=axleD+2*clipRadius);
+	}
+}
+
+module pinHole(axleLen = 3){
+	rotate([180]) translate([0,0,-axleLen]){
+		cylinder(h=axleLen + .01, d=axleD + 2*wiggle);
+		translate([0,0,-.01]) cylinder(h=clipHeight + wiggle+.01, d=axleD+2*clipRadius + 2*wiggle);
+	}
+}
+
+wiggle = .3;
+
+
 
 $fs = .1;
 
 color("lightgreen") {
-	pivot(2);
-	paperMount();
+	//	pivot(2);
+	paperMount(axleLen=3);
 }
 color("lightgreen") translate([13,0]) {
-	pivot(1);
-	paperMount(1);
+	//	pivot(1);
+	paperMount(axleLen=1);
 }
+
+*rotate([180]){
+	separatePin();
+	//	#pinHole();
+}
+
+// module peg(axleLen){ //peg, including clip
+	// 	cylinder(d = axleD, h = axleLen);
+	
+	// 	clipHeight = .3;
+	// 	clipRadius = .5;
+	// 	translate([0,0,axleLen]) 
+	// 	cylinder(h=clipHeight, d1=clipOuterD, d2=axleD);
+
+	// 	clipOuterD = axleD+2*clipRadius;
+
+	// 	printangle = 60;
+
+	// 	translate([0,0,axleLen]) mirror([0,0,1]) cylinder(d1 = clipOuterD ,d2 = axleD, h = cos(printangle) * (clipOuterD - axleD));
+	// }
+
+	// module pivot(axleLen = 3){
+		// 	difference(){ //Peg with slot
+			// 		peg(axleLen);
+
+			// 		sliceWidth = 2;
+			// 		cube([100, sliceWidth, 100], center = true);
+			// 	}
+			// }
+
