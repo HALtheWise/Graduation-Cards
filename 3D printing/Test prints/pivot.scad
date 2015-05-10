@@ -7,6 +7,7 @@ module paperMount(){
 	difference(){
 		cylinder(h=height, d1=width, d2 = width - 2 * height * cos(taperdeg), center=false); //Marker for center
 		translate([0,0,height/2]) cylinder(h=height, d=.2);
+		translate([0,0,height-.1]) pinHole();
 	}
 }
 
@@ -37,9 +38,9 @@ $fs = .1;
 
 color("lightgreen") {
 	//	pivot(2);
-	paperMount(axleLen=3);
+	paperMount();
 }
-color("lightgreen") translate([13,0]) {
+*color("lightgreen") translate([13,0]) {
 	//	pivot(1);
 	paperMount(axleLen=1);
 }
