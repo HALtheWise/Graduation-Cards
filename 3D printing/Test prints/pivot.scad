@@ -5,9 +5,11 @@ module paperMount(){
 
 	translate([0,0,-height])
 	difference(){
-		cylinder(h=height, d1=width, d2 = width - 2 * height * cos(taperdeg), center=false); //Marker for center
+		cylinder(h=height, d1=width, d2 = width - 2 * height * cos(taperdeg), center=false); 
+		//Marker for center
 		translate([0,0,height/2]) cylinder(h=height, d=.2);
-		translate([0,0,height-.1]) pinHole();
+		//Indent for pin
+		translate([0,0,height-.2]) pinHole();
 	}
 }
 
@@ -16,14 +18,14 @@ axleD = 3;
 clipHeight = .8;
 clipRadius = 1.5;
 
-module separatePin(axleLen = 3){
+module separatePin(axleLen = 2){
 	rotate([180]) translate([0,0,-axleLen]){
 		cylinder(h=axleLen, d=axleD);
 		cylinder(h=clipHeight, d=axleD+2*clipRadius);
 	}
 }
 
-module pinHole(axleLen = 3){
+module pinHole(axleLen = 2){
 	rotate([180]) translate([0,0,-axleLen]){
 		cylinder(h=axleLen + .01, d=axleD + 2*wiggle);
 		translate([0,0,-.01]) cylinder(h=clipHeight + wiggle+.01, d=axleD+2*clipRadius + 2*wiggle);
@@ -36,7 +38,7 @@ wiggle = .3;
 
 $fs = .1;
 
-color("lightgreen") {
+!color("lightgreen") {
 	//	pivot(2);
 	paperMount();
 }
@@ -45,7 +47,7 @@ color("lightgreen") {
 	paperMount(axleLen=1);
 }
 
-*rotate([180]){
+rotate([180]){
 	separatePin();
 	//	#pinHole();
 }

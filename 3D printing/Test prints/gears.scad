@@ -56,6 +56,6 @@ module secondGear(){
 }
 
 mainGear();
-translate([13,0]) secondGear();
+translate([13,0]) !secondGear();
 
 $fs = .1;
