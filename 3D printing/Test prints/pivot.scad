@@ -86,6 +86,17 @@ module pinHole(axleLen = 2){
 	}
 }
 
+module screwHole(axleLen = 2, head=0.4){
+	rotate([180]) translate([0,0,-axleLen]){
+		cylinder(h=axleLen + .01, d=screwLooseShaftDiameter);
+		if(head){
+			translate([0,0,-.01]) cylinder(h=screwHeadHeight*head, d=screwLooseHeadDiameter);
+		}
+	}
+}
+
+!screwHole();
+
 wiggle = .3;
 
 

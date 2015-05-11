@@ -16,12 +16,17 @@ module gearTemplate(thick)
 
 wiggle = 0.2;
 
-module mainGear() {
+module mainGear(screw = false) {
 	thickness = 2;
 	difference(){
 		gearTemplate(thickness);
 		
-		pinHole(thickness);
+		if(!screw){
+			pinHole(thickness);
+		}
+		else{
+			screwHole(thickness, head=0.8);
+		}
 	}
 	handleD = 2;
 	handleH = 1.5;
@@ -45,7 +50,7 @@ module secondGear(hole = true){
 
 }
 
-mainGear();
-secondGear();
+mainGear(screw = true);
+//secondGear();
 
 $fs = .1;
