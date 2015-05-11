@@ -48,9 +48,9 @@ module tinyMount(
 module testTinyMount() {
 	tinyMount(screwHole = false);
 	translate([14,14]) tinyMount(screwHole = true);
-	translate([-14,-14]) tinyMount(screwHole = true);
+	translate([-14,-14]) tinyMount(screwHole = true, sparse=false);
 }
-!testTinyMount();
+rotate([0,0,45]) testTinyMount();
 
 module paperMount(){
 	width = 8;
@@ -92,7 +92,7 @@ wiggle = .3;
 
 $fs = .1;
 
-!color("lightgreen") {
+*color("lightgreen") {
 	//	pivot(2);
 	paperMount();
 }
@@ -101,7 +101,7 @@ $fs = .1;
 	paperMount(axleLen=1);
 }
 
-rotate([180]){
+!rotate([180]){
 	separatePin();
 	//	#pinHole();
 }

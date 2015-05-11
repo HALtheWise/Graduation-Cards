@@ -54,7 +54,7 @@ module secondGear(hole = true){
 
 }
 
-!mainGear();
+mainGear();
 secondGear();
 
 $fs = .1;
