@@ -40,7 +40,7 @@ module secondGear(){
 		difference(){
 			gearTemplate(thickness);
 
-		pinHole(2); //Should maybe be pinHole(thickness)
+			pinHole(2); //Should maybe be pinHole(thickness)
 
 			*minkowski(){
 				peg(thickness);
@@ -55,7 +55,7 @@ module secondGear(){
 	}
 }
 
-!mainGear();
+mainGear();
 translate([13,0]) !secondGear();
 
 $fs = .1;
