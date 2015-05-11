@@ -49,13 +49,15 @@ module secondGear(){
 		}
 
 
-		translate([4,0,thickness]){
+		!translate([4,0,thickness]){
 			scale(.4) pivot(2);
 		}
 	}
 }
 
-mainGear();
-translate([13,0]) !secondGear();
+screwTight
+
+*mainGear();
+secondGear();
 
 $fs = .1;
