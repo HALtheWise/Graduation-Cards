@@ -101,7 +101,7 @@ $fs = .1;
 	paperMount(axleLen=1);
 }
 
-!rotate([180]){
+*rotate([180]){
 	separatePin();
 	//	#pinHole();
 }

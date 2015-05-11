@@ -22,11 +22,6 @@ module mainGear() {
 		gearTemplate(thickness);
 		
 		pinHole(thickness);
-
-		*minkowski(){
-			peg(thickness);
-			sphere(wiggle);
-		}
 	}
 	handleD = 2;
 	handleH = 1.5;
@@ -42,10 +37,6 @@ module secondGear(hole = true){
 
 		pinHole(2); //Should maybe be pinHole(thickness)
 
-		*minkowski(){
-			peg(thickness);
-			sphere(wiggle);
-		}
 		if (hole){
 			translate([5,0]) cylinder(h=1000, d=screwTightDiameter, center=true, $fn=20);
 		}
