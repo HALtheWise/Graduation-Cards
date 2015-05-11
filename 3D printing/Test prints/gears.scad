@@ -1,5 +1,6 @@
 use <parametric_involute_gear_v5.0.scad>
 use <pivot.scad>
+include <constants.scad>
 
 module gearTemplate(thick)
 {
@@ -33,31 +34,27 @@ module mainGear() {
 	cylinder(d=handleD, h = handleH);
 }
 
-module secondGear(){
+module secondGear(hole = true){
 	thickness = 1;
-	rotate([0,0,30]){
 
-		difference(){
-			gearTemplate(thickness);
+	difference(){
+		gearTemplate(thickness);
 
-			pinHole(2); //Should maybe be pinHole(thickness)
+		pinHole(2); //Should maybe be pinHole(thickness)
 
-			*minkowski(){
-				peg(thickness);
-				sphere(wiggle);
-			}
+		*minkowski(){
+			peg(thickness);
+			sphere(wiggle);
+		}
+		if (hole){
+			translate([5,0]) cylinder(h=1000, d=screwTightDiameter, center=true, $fn=20);
 		}
 
-
-		!translate([4,0,thickness]){
-			scale(.4) pivot(2);
-		}
 	}
+
 }
 
-screwTight
-
-*mainGear();
+!mainGear();
 secondGear();
 
 $fs = .1;
