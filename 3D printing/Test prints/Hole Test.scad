@@ -11,4 +11,4 @@ module pattern() {
 }
 }
 
-linear_extrude(3) pattern();
+linear_extrude(2) pattern();
