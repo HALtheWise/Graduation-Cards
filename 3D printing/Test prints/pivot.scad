@@ -1,3 +1,57 @@
+include <constants.scad>
+
+module tinyMount(
+	axleLen = 2, 
+	screwHole = false, 
+	sparse = true, 
+	base = true){
+
+	thickness = .6;
+	paper = 0.4;
+	holepunch = 5;//mm
+	r = 10;
+
+	difference(){
+		union(){
+			cylinder(h=thickness + paper, d=holepunch, $fn=60);
+			translate([0,0,thickness+paper]) cylinder(h=axleLen, d=axleD, $fn=60);
+
+			l = [[r, 0], [0, r], [-r, 0], [0, -r]];
+
+
+			if(base)
+			{	curveRadius = 1;
+				if(!sparse){
+					hull()
+					for (x1 = l){
+						translate(x1) cylinder(h=thickness, r=curveRadius, center=false, $fn=20);
+					}
+				}
+				else{
+					for (x1 = l){
+						for (x2 = l){
+							hull(){
+								translate(x1) cylinder(h=thickness, r=curveRadius, center=false, $fn=20);
+								translate(x2) cylinder(h=thickness, r=curveRadius, center=false, $fn=20);
+							}
+						}
+					}
+				}
+			}
+		}
+		if (screwHole) {
+			cylinder(h=1000, d = screwTightDiameter, center=true, $fn=20);
+		}
+	}
+}
+
+module testTinyMount() {
+	tinyMount(screwHole = false);
+	translate([14,14]) tinyMount(screwHole = true);
+	translate([-14,-14]) tinyMount(screwHole = true);
+}
+!testTinyMount();
+
 module paperMount(){
 	width = 8;
 	height = .6;
