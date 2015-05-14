@@ -7,14 +7,14 @@ module tinyMount(
 	base = true){
 
 	thickness = .6;
-	paper = 0.4;
+	paper = paperThickness;
 	holepunch = 5;//mm
 	r = 10;
 
 	difference(){
 		union(){
 			cylinder(h=thickness + paper, d=holepunch, $fn=60);
-			translate([0,0,thickness+paper]) cylinder(h=axleLen, d=axleD, $fn=60);
+			translate([0,0,thickness+paper]) cylinder(h=axleLen, d=looseAxleD, $fn=60);
 
 			l = [[r, 0], [0, r], [-r, 0], [0, -r]];
 
@@ -67,28 +67,39 @@ module paperMount(){
 	}
 }
 
-axleD = 3;
 
 clipHeight = .8;
 clipRadius = 1.5;
 
 module separatePin(axleLen = 2){
 	rotate([180]) translate([0,0,-axleLen]){
-		cylinder(h=axleLen, d=axleD);
-		cylinder(h=clipHeight, d=axleD+2*clipRadius);
+		cylinder(h=axleLen, d=looseAxleD);
+		cylinder(h=clipHeight, d=looseAxleD+2*clipRadius);
+	}
+}
+
+module integratedPin(axleLen = 2, friction = true) {
+	difference(){
+		union(){
+			if (friction) cylinder(h=paperThickness, d=holepunch, center=false, $fn=20);
+			cylinder(h=(friction?paperThickness:0)+ axleLen, d=friction ? tightAxleD : looseAxleD, center=false, $fn=20);
+		}
+		if(!friction){
+			cylinder(h=1000, d = screwTightDiameter, center=true, $fn=20);
+		}
 	}
 }
 
 module pinHole(axleLen = 2){
 	rotate([180]) translate([0,0,-axleLen]){
-		cylinder(h=axleLen + .01, d=axleD + 2*wiggle);
-		translate([0,0,-.01]) cylinder(h=clipHeight + wiggle+.01, d=axleD+2*clipRadius + 2*wiggle);
+		cylinder(h=axleLen + .01, d=holeD);
+		translate([0,0,-.01]) cylinder(h=clipHeight + wiggle+.01, d=holeD + 2*clipRadius);
 	}
 }
 
 module screwHole(axleLen = 2, head=0.4){
 	rotate([180]) translate([0,0,-axleLen]){
-		cylinder(h=axleLen + .01, d=screwLooseShaftDiameter);
+		cylinder(h=axleLen + .01, d=holeD);
 		if(head){
 			translate([0,0,-.01]) cylinder(h=screwHeadHeight*head, d=screwLooseHeadDiameter);
 		}

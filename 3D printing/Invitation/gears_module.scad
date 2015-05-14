@@ -1,10 +1,10 @@
-use <parametric_involute_gear_v5.0.scad>
-use <pivot.scad>
+use <libs/parametric_involute_gear_v5.0.scad>
+use <pivots_module.scad>
 include <constants.scad>
 
-module gearTemplate(thick)
+module gearTemplate(thick, teeth = 6)
 {
-	scale([.22,0.22,1]) gear (number_of_teeth = 6,
+	scale([.22,0.22,1]) gear (number_of_teeth = teeth,
 		circular_pitch=1680,
 		gear_thickness = thick,
 		rim_thickness=thick,
