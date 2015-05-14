@@ -69,7 +69,7 @@ module camArm(){
 }
 
 
-%translate([0,0,-baseThickness]) !microBase();
+%translate([0,0,-baseThickness]) microBase();
 module microBase(){
 	union(){
 		cylinder(h=.8, d=holepunch+4, center=false, $fn=20);
@@ -78,7 +78,7 @@ module microBase(){
 }
 
 armThickness = 2;
-upperArm();
+!upperArm();
 module upperArm(){
 	upperArmLen = 12;
 	difference(){
@@ -89,7 +89,7 @@ module upperArm(){
 			}
 			hull(){ //Bicep highlight
 				cylinder(h=armThickness, d = 6, $fn=20);
-				translate([upperArmLen/2,0,0]) cylinder(h=armThickness, d = 6, $fn=20);
+				translate([upperArmLen*0.4,0,0]) cylinder(h=armThickness, d = 6, $fn=20);
 				translate([upperArmLen/3,0,armThickness]) cube(size=[upperArmLen/4,1,2*armThickness], center=true);
 			}
 		}
@@ -98,7 +98,7 @@ module upperArm(){
 	translate([upperArmLen,0,armThickness]) integratedPin(armThickness, friction= false);
 }
 
-translate([12,0,5]) !lowerArm();
+translate([12,0,5]) lowerArm();
 
 module lowerArm() {
 	lowerArmLen1 = 14;
