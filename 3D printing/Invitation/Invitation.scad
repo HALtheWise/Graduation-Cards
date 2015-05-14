@@ -69,10 +69,10 @@ module camArm(){
 }
 
 
-%translate([0,0,-baseThickness]) microBase();
+%translate([0,0,-baseThickness]) !microBase();
 module microBase(){
 	union(){
-		cylinder(h=.8, d2=holepunch+4, d1=holepunch, center=false, $fn=20);
+		cylinder(h=.8, d=holepunch+4, center=false, $fn=20);
 		translate([0,0,0.8]) integratedPin(armThickness);
 	}
 }
@@ -98,7 +98,7 @@ module upperArm(){
 	translate([upperArmLen,0,armThickness]) integratedPin(armThickness, friction= false);
 }
 
-translate([12,0,5]) lowerArm();
+translate([12,0,5]) !lowerArm();
 
 module lowerArm() {
 	lowerArmLen1 = 14;
@@ -108,7 +108,7 @@ module lowerArm() {
 			union(){ //Forearm
 				hull(){//Main forearm
 					cylinder(h=armThickness, d = 5.8, $fn=20);
-					translate([0,lowerArmLen1,0]) cylinder(h=armThickness *0.6, d = 2, $fn=20);
+					translate([0,lowerArmLen1,0]) cylinder(h=armThickness *0.6, d = 4, $fn=20);
 				}
 				translate([0, lowerArmLen1+4,0]) rotate([0,0,20]) { //Hand
 					if (false){ // Use "E" hand
@@ -131,7 +131,7 @@ module lowerArm() {
 				union(){
 					hull(){//Main hindarm
 						cylinder(h=armThickness*0.8, d = 4, $fn=20);
-						translate([0,-lowerArmLen2,0]) cylinder(h=armThickness *0.4, d = 2, $fn=20);
+						translate([0,-lowerArmLen2,0]) cylinder(h=armThickness *0.4, d = 4, $fn=20);
 					}
 					translate([0,-lowerArmLen2,0]) cylinder(h=armThickness*0.8, d=holeD+1.6, center=false, $fn=40);
 				}
