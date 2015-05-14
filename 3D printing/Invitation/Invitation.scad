@@ -38,7 +38,7 @@ module gear2(){
 	translate([0,0,baseThickness]) integratedPin(1);
 }
 
-*translate([0,0,baseThickness+paperThickness]) microCap();
+translate([0,0,baseThickness+paperThickness]) !microCap();
 module microCap(){
 	difference(){
 		cylinder(h=.8, d1=holepunch+2, d2=holepunch, center=false, $fn=20);
