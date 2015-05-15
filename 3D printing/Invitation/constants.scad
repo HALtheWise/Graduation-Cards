@@ -15,7 +15,7 @@ looseAxleD = 3; //At one point in time, this was 3mm. More testing needed to opt
 
 
 clipD = 3.3;
-clipHeight = .8;
+clipHeight = .6;
 
 
 paperThickness = 0.6;
