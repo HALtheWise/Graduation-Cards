@@ -13,4 +13,9 @@ tightAxleD = 3.2;
 holeD = 3.6;
 looseAxleD = 3; //At one point in time, this was 3mm. More testing needed to optimize.
 
+
+clipD = 3.3;
+clipHeight = .8;
+
+
 paperThickness = 0.6;

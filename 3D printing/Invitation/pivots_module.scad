@@ -68,9 +68,6 @@ module paperMount(){
 }
 
 
-clipHeight = .8;
-clipRadius = 1.5;
-
 module separatePin(axleLen = 2){
 	rotate([180]) translate([0,0,-axleLen]){
 		cylinder(h=axleLen, d=looseAxleD);
@@ -83,6 +80,10 @@ module integratedPin(axleLen = 2, friction = true) {
 		union(){
 			if (friction) cylinder(h=paperThickness, d=holepunch, center=false, $fn=20);
 			cylinder(h=(friction?paperThickness:0)+ axleLen, d=friction ? tightAxleD : looseAxleD, center=false, $fn=20);
+
+			if(!friction){
+				translate([0,0,axleLen - clipHeight]) cylinder(h=clipHeight, d = clipD, $fn=20);
+			}
 		}
 		if(!friction){
 			cylinder(h=1000, d = screwTightDiameter, center=true, $fn=20);
