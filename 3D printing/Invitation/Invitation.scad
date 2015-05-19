@@ -95,7 +95,7 @@ module upperArm(){
 		}
 		screwHole(armThickness+4, head=3.0);
 	}
-	translate([upperArmLen,0,armThickness]) integratedPin(armThickness, friction= false);
+	translate([upperArmLen,0,armThickness]) integratedPin(armThickness+1, friction= false);
 }
 
 translate([12,0,5]) lowerArm();
